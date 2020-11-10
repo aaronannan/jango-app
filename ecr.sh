@@ -61,8 +61,8 @@ sudo docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:latest"
 sudo docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:${TAG}"
 
 
-sudo $LOGIN_ECR
-sudo eval $(aws ecr get-login --no-include-email | sed 's|https://||')
+
+sudo $LOGIN_ECR | sed 's|https://||'
 sudo docker push "${ECR_URI}/${REPONAME}:latest"
 sudo docker push "${ECR_URI}/${REPONAME}:${TAG}"
 
