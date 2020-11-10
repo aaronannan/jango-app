@@ -1,20 +1,21 @@
+
+---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: jango-mart
+  name: jango-app
+  labels:
+    app: jango-app
 spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: jango-mart
-    spec:
-      containers:
-      - name: jango-mart-pod
-        image: 785063031912.dkr.ecr.us-east-2.amazonaws.com/jangomart/jango-app:latest
-        ports:
+  containers:
+    - name: front-end
+      image: 85063031912.dkr.ecr.us-east-2.amazonaws.com/jangomart/jango-app:latest
+      ports:
         - containerPort: 80
         - containerPort: 443
+
+
+
 ---
 apiVersion: v1
 kind: Service
