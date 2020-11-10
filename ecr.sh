@@ -54,13 +54,13 @@ echo "$(git rev-parse --abbrev-ref HEAD)"
 sleep 5
 
 
-
+sudo $LOGIN_ECR
 sudo docker build -t "${REPONAME}:latest" -f ./Dockerfile .
 
 sudo docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:latest"
 sudo docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:${TAG}"
 
-
+sudo $LOGIN_ECR
 
 sudo docker push "${ECR_URI}/${REPONAME}:latest"
 sudo docker push "${ECR_URI}/${REPONAME}:${TAG}"
