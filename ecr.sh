@@ -19,7 +19,6 @@ ECR_URI="785063031912.dkr.ecr.us-east-2.amazonaws.com"
 
 
 
-sudo $LOGIN_ECR
 
 for i in  $REPOS;
 #if repo name already exist exit, if not create the Repo in ecr registery
@@ -54,7 +53,7 @@ echo "$(git rev-parse --abbrev-ref HEAD)"
 sleep 5
 
 
-sudo $LOGIN_ECR
+
 sudo docker build -t "${REPONAME}:latest" -f ./Dockerfile .
 
 sudo docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:latest"
@@ -62,7 +61,7 @@ sudo docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:${TAG}"
 
 
 
-sudo $LOGIN_ECR | sed 's|https://||'
+
 sudo docker push "${ECR_URI}/${REPONAME}:latest"
 sudo docker push "${ECR_URI}/${REPONAME}:${TAG}"
 
