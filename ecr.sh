@@ -15,7 +15,7 @@ USER=aaron #define in jenkins
 REGID=785063031912
 GIT_BRANCH="$(git name-rev --name-only HEAD | cut -f 3- -d '/')"
 
-ECR_URI="785063031912.dkr.ecr.us-east-2.amazonaws.com"
+ECR_URI="https://785063031912.dkr.ecr.us-east-2.amazonaws.com"
 
 
 
