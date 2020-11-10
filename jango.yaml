@@ -9,7 +9,7 @@ metadata:
 spec:
   containers:
     - name: front-end
-      image: 85063031912.dkr.ecr.us-east-2.amazonaws.com/jangomart/jango-app:latest
+      image: 785063031912.dkr.ecr.us-east-2.amazonaws.com/jangomart/jango-app:latest
       ports:
         - containerPort: 80
         - containerPort: 443
