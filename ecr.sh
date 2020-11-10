@@ -19,7 +19,7 @@ ECR_URI="785063031912.dkr.ecr.us-east-2.amazonaws.com"
 
 
 
-$LOGIN_ECR
+sudo $LOGIN_ECR
 
 for i in  $REPOS;
 #if repo name already exist exit, if not create the Repo in ecr registery
@@ -57,38 +57,20 @@ VERSION='1.0.0'
 
 
 
-docker build -t "${REPONAME}:latest" -f ./Dockerfile .
+sudo docker build -t "${REPONAME}:latest" -f ./Dockerfile .
 
-docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:latest"
-docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:${TAG}"
-docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:${GIT_BRANCH}"
+sudo docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:latest"
+sudo docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:${TAG}"
+sudo docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:${GIT_BRANCH}"
 
-$LOGIN_ECR
-
-
-
-docker push "${ECR_URI}/${REPONAME}:latest"
-docker push "${ECR_URI}/${REPONAME}:${TAG}"
-docker push "${ECR_URI}/${REPONAME}:${GIT_BRANCH}"
+sudo $LOGIN_ECR
 
 
-aws ecr set-repository-policy --registry-id $REGID --repository-name ${REPONAME} --policy-text '{
-  "Version": "2008-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowCrossAccountPull",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::388633872430:root"
-      },
-      "Action": [
-        "ecr:BatchCheckLayerAvailability",
-        "ecr:BatchGetImage",
-        "ecr:GetDownloadUrlForLayer"
-      ]
-    }
-  ]
-}'
+
+sudo docker push "${ECR_URI}/${REPONAME}:latest"
+sudo docker push "${ECR_URI}/${REPONAME}:${TAG}"
+sudo docker push "${ECR_URI}/${REPONAME}:${GIT_BRANCH}"
+
 
 
 echo "Your Image has been successfully built and Pushed to ECR"
