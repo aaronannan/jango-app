@@ -53,24 +53,17 @@ fi
 echo "$(git rev-parse --abbrev-ref HEAD)"
 sleep 5
 
-VERSION='1.0.0'
-
 
 
 sudo docker build -t "${REPONAME}:latest" -f ./Dockerfile .
 
 sudo docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:latest"
 sudo docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:${TAG}"
-sudo docker tag "${REPONAME}:latest" "${ECR_URI}/${REPONAME}:${GIT_BRANCH}"
-
-sudo $LOGIN_ECR
 
 
 
 sudo docker push "${ECR_URI}/${REPONAME}:latest"
 sudo docker push "${ECR_URI}/${REPONAME}:${TAG}"
-sudo docker push "${ECR_URI}/${REPONAME}:${GIT_BRANCH}"
-
 
 
 echo "Your Image has been successfully built and Pushed to ECR"
@@ -79,6 +72,6 @@ echo "${ECR_URI}/${REPONAME}:latest"
 
 docker rmi "${ECR_URI}/${REPONAME}:latest"
 docker rmi "${ECR_URI}/${REPONAME}:${TAG}"
-docker rmi "${ECR_URI}/${REPONAME}:${GIT_BRANCH}"
+
 
 exit 0
